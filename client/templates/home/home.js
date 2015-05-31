@@ -29,6 +29,7 @@ var readFile = function(input, instance) {
           } else {
             console.log(res);
           }
+          input.value = '';
         });
       }
     };
