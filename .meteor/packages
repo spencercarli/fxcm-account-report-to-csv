@@ -23,3 +23,8 @@ yasinuslu:blaze-meta
 aldeed:collection2
 aldeed:autoform
 peerlibrary:xml2js
+meteorhacks:npm
+
+
+npm-container
+pfafman:filesaver

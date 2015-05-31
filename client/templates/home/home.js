@@ -46,7 +46,12 @@ var readFile = function(input, instance) {
         } else if (isHTML) {
           var obj = readHTML(data);
           Meteor.call('File.processHTMLObj', obj, function(err, res) {
-
+            if (err) {
+              Helpers.notify(err.reason);
+            } else {
+              var blob = base64ToBlob(res);
+              saveAs(blob, 'export.zip');
+            }
           });
           input.value = '';
         }
@@ -101,4 +106,21 @@ var getRowData = function(headers, tr) {
 
     return d;
   }
+};
+
+var base64ToBlob = function(base64String) {
+  var byteCharacters = atob(base64String);
+  var byteNumbers = new Array(byteCharacters.length);
+
+  var i = 0;
+  while (i < byteCharacters.length) {
+    byteNumbers[i] = byteCharacters.charCodeAt(i);
+    i++;
+  }
+
+  var byteArray = new Uint8Array(byteNumbers);
+  var blob = new Blob([byteArray], {
+    type: "zip"
+  });
+  return blob;
 };

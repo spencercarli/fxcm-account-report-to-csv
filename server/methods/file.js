@@ -1,3 +1,7 @@
+var fastCsv = Meteor.npmRequire('fast-csv');
+var jsZip = Meteor.npmRequire('jszip');
+var Future = Npm.require('fibers/future');
+
 Meteor.methods({
   'File.processXML': function(data) {
     xml2js.parseString(data, {}, function(err, res) {
@@ -12,8 +16,26 @@ Meteor.methods({
     return 'Response';
   },
 
-  'File.processHTMLObj': function(data) {
-    console.log(JSON.stringify(data));
-    return 'Response';
+  'File.processHTMLObj': function(obj) {
+    console.log(JSON.stringify(obj));
+    var csv = fastCsv;
+    var zip = new jsZip();
+    var fut = new Future();
+
+    var generateCSV = function() {
+      csv.writeToString(obj, { headers: true }, function(err, data) {
+        if (err) {
+          console.log(err);
+          fut.throw(err);
+        } else {
+          zip.file('export.csv', data);
+          fut.return();
+        }
+      });
+      fut.wait();
+    }
+
+    generateCSV();
+    return zip.generate({type: "base64"});
   }
 });
