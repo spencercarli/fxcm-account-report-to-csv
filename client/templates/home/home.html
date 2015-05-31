@@ -1,8 +1,25 @@
 <template name="home">
-  <div class="template-home">
+  <div class="col-md-8 col-md-offset-2">
     <div class="page-header">
       <h1>FXCM Account Report to CSV</h1>
     </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <p>
+          A simple to use solution to turn your account report from FXCM into a CSV that's digestable by many more programs than FXCM's default export options (such as Google Sheets).
+        </p>
+
+        <h3>How To Use</h3>
+        <ol>
+          <li>Export account report for your time range on FXCM trading station as an HTML file.</li>
+          <li>Choose file from wherever you saved it.</li>
+          <li>A ZIP file will download once processing is complete.</li>
+          <li>Unzip the file and use the CSV file however you wish.</li>
+        </ol>
+      </div>
+    </div>
+
     <form>
       <div class="row">
         <div class="col-md-6">
@@ -20,8 +37,11 @@
       </div>
     </form>
 
+    <p>
+      Built by <a href="http://spencercarli.com" target="_blank">Spencer Carli</a>. Code is open source on <a href="https://github.com/spencercarli/fxcm-account-report-to-csv">Github</a>.
+    </p>
+
     <div id="temp-data"></div>
 
-    <!-- {{> table}} -->
   </div>
 </template>
